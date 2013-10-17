@@ -105,7 +105,7 @@ public class Ellipse extends Shape {
 		return center;
 		//Test change
 	}
-	//Need to fix
+	
 	public void setCenter(Point newCenter){
 		
 	}

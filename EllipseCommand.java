@@ -8,13 +8,16 @@ public class EllipseCommand extends Command {
 	public void executePress(Point p, Drawing dwg) { 
 		startPoint = p;
 		currentEllipse = new Ellipse(dwg.getCurrentColor(),p);
+		dwg.addShape(currentEllipse);
 		
 	}
 
 	public void executeDrag(Point p, Drawing dwg) {
 		currentEllipse.updateSize(p);
-		dwg.addShape(currentEllipse);
+		System.out.println(dwg.getAllShapes().size());
 	}
+	
+
 	
 	
 }
