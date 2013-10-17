@@ -21,7 +21,34 @@ public class Segment extends Shape {
 	}
 	
 	public Segment(Color c, Point first, Point second){
-		
+		super(c);
+		firstPoint = first;
+		secondPoint = second;
+	}
+	
+	public Point findTopLeft(){
+		if(secondPoint.y < firstPoint.y && secondPoint.x < firstPoint.x){
+			return secondPoint;
+		}
+		else if(secondPoint.y > firstPoint.y && secondPoint.x < firstPoint.x){
+			Point p = new Point(secondPoint.x,firstPoint.y);
+			return p;
+		}
+		else if(secondPoint.y < firstPoint.y && secondPoint.x > firstPoint.x){
+			Point p = new Point(firstPoint.x,secondPoint.y);
+			return p;
+		}
+		else{
+			return firstPoint;
+		}
+	}
+	
+	public int findHeight(){
+		return Math.abs(secondPoint.y-firstPoint.y);
+	}
+	
+	public int findWidth(){
+		return Math.abs(secondPoint.x-firstPoint.x);
 	}
 
 	// Helper method that returns true if Point p is within a tolerance of a
@@ -63,27 +90,40 @@ public class Segment extends Shape {
 		}
 	}
 
-	@Override
 	public void drawShape(Graphics page) {
-		// TODO Auto-generated method stub
-
+		page.drawLine(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y);
 	}
 
-	@Override
+
 	public boolean containsPoint(Point p) {
-		// TODO Auto-generated method stub
-		return false;
+		double tolerance = 3;
+		Point topLeft = findTopLeft();
+		if (Segment.distanceToPoint(p, firstPoint.x,firstPoint.y, secondPoint.x,secondPoint.y)<tolerance &&
+			Segment.almostContainsPoint(p, topLeft.x, topLeft.y, topLeft.x+findWidth(), topLeft.y+findHeight(), tolerance)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
-	@Override
+	
 	public void move(int deltaX, int deltaY) {
-		// TODO Auto-generated method stub
-
+		firstPoint.x+=deltaX;
+		firstPoint.y+=deltaY;
+		secondPoint.x+=deltaX;
+		secondPoint.y+=deltaY;
 	}
 
-	@Override
+	
 	public Point getCenter() {
-		// TODO Auto-generated method stub
-		return null;
+		int x = findTopLeft().x+(findWidth()/2);
+		int y = findTopLeft().y+(findHeight()/2);
+		Point center = new Point(x,y);
+		return center;
+	}
+	
+	public void updateSize(Point p){
+		secondPoint = p;
 	}
 }

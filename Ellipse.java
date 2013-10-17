@@ -23,10 +23,9 @@ public class Ellipse extends Shape {
 	
 	public Ellipse(Color c,Point first) {
 		super(c);
-		secondPoint = new Point();
 		firstPoint = first;
-		secondPoint.x = firstPoint.x;
-		secondPoint.y = firstPoint.y;
+		secondPoint = new Point(firstPoint.x,firstPoint.y);
+		
 	}
 	
 	public Ellipse(Color c, Point first, Point second){
@@ -91,24 +90,19 @@ public class Ellipse extends Shape {
 		return Ellipse.pointInEllipse(p, firstPoint.x, firstPoint.y, findWidth(), findHeight());
 	}
 
-	//NEED to FIx
+	
 	public void move(int deltaX, int deltaY) {
-		
+		firstPoint.x+=deltaX;
+		firstPoint.y+=deltaY;
+		secondPoint.x+=deltaX;
+		secondPoint.y+=deltaY;
 	}
 
 	public Point getCenter() {
-		int a = (int) (findWidth()/ 2.0); 
-		int b = (int) (findHeight() / 2.0);
-		int centerx = (int)firstPoint.x + a; // x-coord of the center
-		int centery = (int)firstPoint.y + b;
-		Point center = new Point(centerx,centery);
+		int x = findTopLeft().x+(findWidth()/2);
+		int y = findTopLeft().y+(findHeight()/2);
+		Point center = new Point(x,y);
 		return center;
-		//Test change
 	}
-	
-	public void setCenter(Point newCenter){
-		
-	}
-	
 	
 }

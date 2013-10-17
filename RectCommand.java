@@ -1,9 +1,14 @@
-import java.awt.Point;
+import java.awt.*;
 
+public class RectCommand extends Command{
+	private Rect currentRect;
 
-public class RectCommand extends Command {
-	public void executeDrag(Point p, Drawing dwg) {
-		
+	public void executePress(Point p, Drawing dwg){
+		currentRect=new Rect(dwg.getCurrentColor(),p);
+		dwg.addShape(currentRect);
 	}
-	
+	public void executeDrag(Point p, Drawing dwg){
+		currentRect.updateSize(p);
+	}
+
 }
