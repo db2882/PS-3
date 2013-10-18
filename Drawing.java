@@ -41,10 +41,9 @@ public class Drawing {
 		shape.remove(shape.indexOf(s));
 		shape.add(0,s);
 	}
-
 	public void moveToBack(Shape s){
 		shape.remove(shape.indexOf(s));
-		shape.add(shape.size()-1,s);
+		shape.add(s);
 	}
 
 	public Shape getFrontmostContainer(Point p){
