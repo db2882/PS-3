@@ -104,5 +104,11 @@ public class Ellipse extends Shape {
 		Point center = new Point(x,y);
 		return center;
 	}
+	public Shape clone() {
+		Point f = new Point(firstPoint.x,firstPoint.y);
+		Point s = new Point(secondPoint.x,secondPoint.y);
+		Shape newSeg = new Ellipse(super.getColor(),f,s);
+		return newSeg;
+	}
 	
 }

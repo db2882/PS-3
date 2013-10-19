@@ -72,6 +72,13 @@ public class Rect extends Shape{
 		Point center = new Point(centerx,centery);
 		return center;
 	}
+	
+	public Shape clone() {
+		Point f = new Point(firstPoint.x,firstPoint.y);
+		Point s = new Point(secondPoint.x,secondPoint.y);
+		Shape newSeg = new Rect(super.getColor(),f,s);
+		return newSeg;
+	}
 
 }
 

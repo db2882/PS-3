@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class Segment extends Shape {
 	private Point firstPoint, secondPoint;
-	
+
 	public Segment(Color c, Point first) {
 		super(c);
 		secondPoint = new Point();
@@ -19,13 +19,13 @@ public class Segment extends Shape {
 		secondPoint.x = firstPoint.x;
 		secondPoint.y = firstPoint.y;
 	}
-	
+
 	public Segment(Color c, Point first, Point second){
 		super(c);
 		firstPoint = first;
 		secondPoint = second;
 	}
-	
+
 	public Point findTopLeft(){
 		if(secondPoint.y < firstPoint.y && secondPoint.x < firstPoint.x){
 			return secondPoint;
@@ -42,11 +42,11 @@ public class Segment extends Shape {
 			return firstPoint;
 		}
 	}
-	
+
 	public int findHeight(){
 		return Math.abs(secondPoint.y-firstPoint.y);
 	}
-	
+
 	public int findWidth(){
 		return Math.abs(secondPoint.x-firstPoint.x);
 	}
@@ -92,6 +92,7 @@ public class Segment extends Shape {
 
 	public void drawShape(Graphics page) {
 		page.drawLine(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y);
+
 	}
 
 
@@ -99,7 +100,7 @@ public class Segment extends Shape {
 		double tolerance = 3;
 		Point topLeft = findTopLeft();
 		if (Segment.distanceToPoint(p, firstPoint.x,firstPoint.y, secondPoint.x,secondPoint.y)<tolerance &&
-			Segment.almostContainsPoint(p, topLeft.x, topLeft.y, topLeft.x+findWidth(), topLeft.y+findHeight(), tolerance)){
+				Segment.almostContainsPoint(p, topLeft.x, topLeft.y, topLeft.x+findWidth(), topLeft.y+findHeight(), tolerance)){
 			return true;
 		}
 		else{
@@ -107,7 +108,7 @@ public class Segment extends Shape {
 		}
 	}
 
-	
+
 	public void move(int deltaX, int deltaY) {
 		firstPoint.x+=deltaX;
 		firstPoint.y+=deltaY;
@@ -115,15 +116,22 @@ public class Segment extends Shape {
 		secondPoint.y+=deltaY;
 	}
 
-	
+
 	public Point getCenter() {
 		int x = findTopLeft().x+(findWidth()/2);
 		int y = findTopLeft().y+(findHeight()/2);
 		Point center = new Point(x,y);
 		return center;
 	}
-	
+
 	public void updateSize(Point p){
 		secondPoint = p;
+	}
+
+	public Shape clone() {
+		Point f = new Point(firstPoint.x,firstPoint.y);
+		Point s = new Point(secondPoint.x,secondPoint.y);
+		Shape newSeg = new Segment(super.getColor(),f,s);
+		return newSeg;
 	}
 }

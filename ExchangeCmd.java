@@ -23,7 +23,7 @@ public class ExchangeCmd extends Command {
 	public void executeClick(Point p, Drawing dwg) {
 		// Find the frontmost shape containing p.
 		Shape s = dwg.getFrontmostContainer(p);
-
+		dwg.makeChange();
 		if (s != null) { // was there a Shape containing p?
 			if (firstShape == null)
 				firstShape = s; // save this Shape for when there's another click
